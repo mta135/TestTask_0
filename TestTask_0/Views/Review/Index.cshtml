@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Review>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Add Review</h1>
+
+    <form asp-action="AddReview" method="post">
+        <div class="form-group">
+            <label class="col-md-2">Name</label>
+            <div class="col-md">
+                <input name="Name" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2">Category</label>
+            <div class="col-md">
+                <input name="Category" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2">Description</label>
+            <div class="col-md">
+                <input name="Description" class="form-control" />
+            </div>
+        </div>
+
+
+   
+
+
+        <div class="form-group">
+            <div class="col-md">
+                <button type="submit" class="btn btn-primary">Add Review</button>
+            </div>
+        </div>
+    </form>
+    <hr />
+    @if (Model.Count() != 0)
+    {
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+            @foreach (Review item in Model)
+            {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Category</td>
+            <td>@item.Description</td>
+           
+        </tr>
+            }
+        </table>
+    }
+
+</div>
