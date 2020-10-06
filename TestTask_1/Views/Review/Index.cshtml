@@ -7,16 +7,17 @@
 
 
 
-<script src="~/lib/bootstrap/js/site.js"></script>
+@*<script src="~/lib/bootstrap/js/site.js"></script>*@
 <div class="container">
     <h1>Index</h1>
 
     <div id="PlaceHolderHere"></div>
 
-    <div>
+    @*<div>
         <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addReview" data-url="@Url.Action("Create")">Create</button>
-    </div>
+    </div>*@
     <hr />
+
     <div>
         @(Html.Kendo().Grid(Model)
         .Name("GridReview")
@@ -24,7 +25,6 @@
         {
             columns.Bound(p => p.Id).Title("Id");
             columns.Bound(p => p.Name).Title("Name");
-            columns.Bound(p => p.Category).Title("Category");
             columns.Bound(p => p.Description).Title("Description");
         })
         .Pageable()

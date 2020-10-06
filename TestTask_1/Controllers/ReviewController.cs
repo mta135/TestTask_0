@@ -20,11 +20,13 @@ namespace TestTask_1.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var aaaa = repository.Reviews;
+
             IEnumerable<Review> review  = repository.Reviews;
-            return View(review);
+
+
+            return View(aaaa);
         }
-
-
 
 
         [HttpGet]

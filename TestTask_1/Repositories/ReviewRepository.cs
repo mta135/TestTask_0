@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +21,9 @@ namespace TestTask_1.Repositories
         {
             get
             {
-                return context.Reviews.ToList();
+                var value = context.Reviews;
+                return context.Reviews;
+                //return context.Reviews.Include(r => r.Category);
             }
         }
 
