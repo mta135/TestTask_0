@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/TestTask_0/Migrations/20201006112047_delete_Column_Category_from_Review_table.Designer.cs

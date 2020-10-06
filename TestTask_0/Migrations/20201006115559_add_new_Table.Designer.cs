@@ -9,8 +9,8 @@ using TestTask_0.DataBase;
 namespace TestTask_0.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201006065452_drop_Column_CategoryID_from_Review_Table")]
-    partial class drop_Column_CategoryID_from_Review_Table
+    [Migration("20201006115559_add_new_Table")]
+    partial class add_new_Table
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,10 +29,9 @@ namespace TestTask_0.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnName("Category")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnName("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -45,6 +44,9 @@ namespace TestTask_0.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
 
                     b.ToTable("Reviews");
                 });
@@ -65,6 +67,15 @@ namespace TestTask_0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("TestTask_0.Model.Review", b =>
+                {
+                    b.HasOne("TestTask_0.Models.Category", "Category")
+                        .WithOne("Review")
+                        .HasForeignKey("TestTask_0.Model.Review", "CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

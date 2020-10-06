@@ -22,6 +22,7 @@ namespace TestTask_0.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+
             IEnumerable<Review> reviewList = repository.Reviews;
             return View(reviewList);
         }

@@ -32,11 +32,9 @@ namespace TestTask_0.DataBase
             modelBuilder.Entity<Review>().HasKey(r => r.Id);
             modelBuilder.Entity<Review>().Property(r => r.Id).HasColumnType("int");
             modelBuilder.Entity<Review>().Property(r => r.Id).ValueGeneratedOnAdd();
-
             modelBuilder.Entity<Review>().Property(r => r.Name).HasColumnName("Name").HasColumnType("nvarchar(100)").IsRequired();
-            modelBuilder.Entity<Review>().Property(r => r.Category).HasColumnName("Category").HasColumnType("nvarchar(100)").IsRequired();
             modelBuilder.Entity<Review>().Property(r => r.Description).HasColumnName("Description").HasColumnType("nvarchar(100)").IsRequired();
-            modelBuilder.Entity<Review>().Property(r => r.CategoryId).HasColumnName("CategoryId").HasColumnType("int");
+            modelBuilder.Entity<Review>().Property(r => r.CategoryId).HasColumnName("CategoryId").HasColumnType("int"); 
             #endregion
 
             #region Category Table
@@ -44,13 +42,13 @@ namespace TestTask_0.DataBase
             modelBuilder.Entity<Category>().HasKey(c => c.Id);
             modelBuilder.Entity<Category>().Property(c => c.Id).HasColumnType("int");
             modelBuilder.Entity<Category>().Property(c => c.Id).ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Category>().Property(c => c.Name).HasColumnName("Name").HasColumnType("nvarchar(100)").IsRequired();
             #endregion
 
-            #region Tables Relashionship
+
             #region  (Review Table -> Category Table) one-to-one Relation
-            modelBuilder.Entity<Review>().HasOne(e => e.Categori).WithOne(e => e.Review).HasForeignKey<Review>(e => e.CategoryId);
-            #endregion
+            modelBuilder.Entity<Review>().HasOne(e => e.Category).WithOne(e => e.Review).HasForeignKey<Review>(e => e.CategoryId); 
             #endregion
         }
     }
