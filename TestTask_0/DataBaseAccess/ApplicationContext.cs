@@ -47,8 +47,10 @@ namespace TestTask_0.DataBase
             modelBuilder.Entity<Category>().Property(c => c.Name).HasColumnName("Name").HasColumnType("nvarchar(100)").IsRequired();
             #endregion
 
-            #region Review Table -> Category Table one-to-one Relation
+            #region Tables Relashionship
+            #region  (Review Table -> Category Table) one-to-one Relation
             modelBuilder.Entity<Review>().HasOne(e => e.Categori).WithOne(e => e.Review).HasForeignKey<Review>(e => e.CategoryId);
+            #endregion
             #endregion
         }
     }
