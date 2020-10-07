@@ -24,6 +24,7 @@ namespace TestTask_0.Repositories
                 return context.Reviews.Include(r => r.Category);
             }
         }
+        //Categories Table
         public IEnumerable<Category> Categories
         {
             get
@@ -35,13 +36,13 @@ namespace TestTask_0.Repositories
         {
             try
             {
-                Review reviewAdtional = new Review
+                Review reviewAditional = new Review
                 {
                     Name = review.Name,
                     Description = review.Description,
                     CategoryId = review.Category.Id
                 };
-                context.Reviews.Add(reviewAdtional);
+                context.Reviews.Add(reviewAditional);
                 context.SaveChanges();
             } catch (Exception ex)
             {
