@@ -43,8 +43,7 @@ namespace TestTask_0.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId")
-                        .IsUnique();
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Reviews");
                 });
@@ -58,7 +57,6 @@ namespace TestTask_0.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnName("Name")
                         .HasColumnType("nvarchar(100)");
 
@@ -67,11 +65,55 @@ namespace TestTask_0.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("TestTask_0.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FKCountry")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FKCountry");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("TestTask_0.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("TestTask_0.Model.Review", b =>
                 {
                     b.HasOne("TestTask_0.Models.Category", "Category")
-                        .WithOne("Review")
-                        .HasForeignKey("TestTask_0.Model.Review", "CategoryId")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TestTask_0.Models.City", b =>
+                {
+                    b.HasOne("TestTask_0.Models.Country", "Country")
+                        .WithMany("City")
+                        .HasForeignKey("FKCountry")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

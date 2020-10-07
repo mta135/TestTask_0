@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestTask_0.DataBase;
 using TestTask_0.Infrastructure;
 using TestTask_0.Model;
+using TestTask_0.Models;
 
 namespace TestTask_0.Repositories
 {
@@ -16,7 +17,6 @@ namespace TestTask_0.Repositories
         {
             this.context = context;
         }
-
         public IEnumerable<Review> Reviews
         {
             get
@@ -24,11 +24,29 @@ namespace TestTask_0.Repositories
                 return context.Reviews.Include(r => r.Category);
             }
         }
-
+        public IEnumerable<Category> Categories
+        {
+            get
+            {
+                return context.Categories;
+            }
+        }
         public void AddReview(Review review)
         {
-            context.Reviews.Add(review);
-            context.SaveChanges();
+            try
+            {
+                Review reviewAdtional = new Review
+                {
+                    Name = review.Name,
+                    Description = review.Description,
+                    CategoryId = review.Category.Id
+                };
+                context.Reviews.Add(reviewAdtional);
+                context.SaveChanges();
+            } catch (Exception ex)
+            {
+                string exception = ex.ToString();
+            }
         }
     }
 }
