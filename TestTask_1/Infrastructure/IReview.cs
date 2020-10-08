@@ -11,5 +11,7 @@ namespace TestTask_1.Infrastructure
         IEnumerable<Review> Reviews { get; }
         IEnumerable<Category> Categories { get; }
         void AddNewReview(Review review);
+        Review GetReviewById(int Id);
+        void UpdateReview(Review review);
     }
 }
