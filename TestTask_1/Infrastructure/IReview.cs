@@ -9,6 +9,7 @@ namespace TestTask_1.Infrastructure
    public  interface IReview
     {
         IEnumerable<Review> Reviews { get; }
-        void AddReview(Review review);
+        IEnumerable<Category> Categories { get; }
+        void AddNewReview(Review review);
     }
 }

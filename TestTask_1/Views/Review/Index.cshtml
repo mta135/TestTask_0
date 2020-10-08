@@ -5,29 +5,24 @@
 }
 
 
-
-
-@*<script src="~/lib/bootstrap/js/site.js"></script>*@
-<div class="container">
+<div class="container-fluid">
     <h1>Index</h1>
 
-    <div id="PlaceHolderHere"></div>
-
-    @*<div>
-        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addReview" data-url="@Url.Action("Create")">Create</button>
-    </div>*@
     <hr />
 
-    <div>
         @(Html.Kendo().Grid(Model)
-        .Name("GridReview")
+        .Name("Grid")
         .Columns(columns =>
         {
             columns.Bound(p => p.Id).Title("Id");
             columns.Bound(p => p.Name).Title("Name");
             columns.Bound(p => p.Description).Title("Description");
         })
-        .Pageable()
+        .HtmlAttributes(new { style = "height: 600px;" })
+        .Pageable( pageable => pageable
+        .Input(true)
+        .Numeric(false)
+     )
         .Sortable()
         .Scrollable(scr=>scr.Height(430))
         .Filterable()
@@ -38,7 +33,7 @@
      )
 )
 
-    </div>
+
 </div>
 
 

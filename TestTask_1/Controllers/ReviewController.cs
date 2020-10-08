@@ -21,28 +21,26 @@ namespace TestTask_1.Controllers
         public IActionResult Index()
         {
             var aaaa = repository.Reviews;
-
-            IEnumerable<Review> review  = repository.Reviews;
-
-
-            return View(aaaa);
+            IEnumerable<Review> revieview  = repository.Reviews;
+            return View(revieview);
         }
 
 
+   
+
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult AddNewReview()
         {
-            Review review = new Review();
-            return PartialView("ReviewModalPartial", review);
+            var value = repository.Categories;
+            ViewBag.allCategories = repository.Categories;
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Review review)
+        public IActionResult AddNewReview(Review review)
         {
-            //repository.AddReview(review);
-            //return RedirectToAction(nameof(Index));
-
-            return View();
+            repository.AddNewReview(review);
+            return RedirectToAction(nameof(AddNewReview));
         }
     }
 }

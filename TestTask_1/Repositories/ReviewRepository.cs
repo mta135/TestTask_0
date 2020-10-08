@@ -16,21 +16,40 @@ namespace TestTask_1.Repositories
         {
             this.context = context;
         }
-
         public IEnumerable<Review> Reviews
         {
             get
             {
-                var value = context.Reviews;
-                return context.Reviews;
-                //return context.Reviews.Include(r => r.Category);
+                return context.Reviews.ToList();
             }
         }
 
-        public void AddReview(Review review)
+        //Categories Table
+        public IEnumerable<Category> Categories
         {
-            context.Reviews.Add(review);
-            context.SaveChanges();
+            get
+            {
+                return context.Categories;
+            }
+        }
+
+        public void AddNewReview(Review review)
+        {
+            try
+            {
+                Review reviewAditional = new Review
+                {
+                    Name = review.Name,
+                    Description = review.Description,
+                    CategoryId = review.Category.Id
+                };
+                context.Reviews.Add(reviewAditional);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string exception = ex.ToString();
+            }
         }
     }
 }
