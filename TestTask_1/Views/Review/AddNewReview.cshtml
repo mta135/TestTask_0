@@ -1,0 +1,29 @@
+﻿@model Review
+@{
+    Layout = "~/Views/Shared/_LayoutReview.cshtml";
+}
+
+<div class="container">
+    <h1>Add New Review</h1>
+    <form asp-action="AddNewReview" method="post">
+        <div class="form-group">
+            <label asp-for="Category"></label>
+            <select class="form-control" asp-for="Category.Id" asp-items="@(new SelectList(ViewBag.allCategories,"Id","Name"))">
+                <option value="0">Select Category</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" class="form-control" id="txtName" aria-describedby="Name">
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" rows="5" cols="40"></textarea>
+        </div>
+        <div class="form-group">
+            <div class="row col-md">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
