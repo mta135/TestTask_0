@@ -21,5 +21,8 @@ namespace TestTask_1.Models
 
         [DisplayName("All Categories")]
         public Category Category { get; set; }
+
+        [NotMapped]
+        public string CategoryName { get; set; }
     }
 }
