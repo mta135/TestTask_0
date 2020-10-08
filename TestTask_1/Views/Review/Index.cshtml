@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Review>
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -7,36 +6,33 @@
 
 <div class="container">
     <h1>Index</h1>
-
     <hr />
-
-        @(Html.Kendo().Grid(Model)
+    @(Html.Kendo().Grid(Model)
         .Name("Grid")
         .Columns(columns =>
         {
             columns.Bound(p => p.Id).Title("Id");
             columns.Bound(p => p.Name).Title("Name");
             columns.Bound(p => p.Description).Title("Description");
-            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Details", "Review") + "/#= Id #'" + ">Details</a>");
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Details", "Review") + "/#= Id #'" + ">Details</a>").Width(100).Title("Detalii");
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Review") + "/#= Id #'" + ">Edit</a>").Width(100).Title("Editabil");
+            columns.Bound(p => p.CategoryName).Title("Category Name");
         })
         .HtmlAttributes(new { style = "height: 600px;" })
         .Pageable( pageable => pageable
         .Input(true)
         .Numeric(false)
      )
-        .Sortable()
         .Scrollable(scr=>scr.Height(430))
-        .Filterable()
         .DataSource(dataSource => dataSource
         .Ajax()
         .PageSize(20)
         .ServerOperation(false)
      )
 )
-
-    <dvi>
-        <button type="button" class="btn btn-primary"> Some Text</button>
-    </dvi>
+    @*<dvi>
+            <button type="button" class="btn btn-primary"> Some Text</button>
+        </dvi>*@
 
 
 </div>
