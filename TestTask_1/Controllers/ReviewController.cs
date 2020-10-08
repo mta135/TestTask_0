@@ -16,22 +16,23 @@ namespace TestTask_1.Controllers
             this.repository = repository;
         }
 
-
         [HttpGet]
         public IActionResult Index()
         {
-            var aaaa = repository.Reviews;
-            IEnumerable<Review> revieview  = repository.Reviews;
-            return View(revieview);
+            IEnumerable<Review> reviewModel = (from rev in repository.Reviews
+                                               select new Review()
+                                               {
+                                                   Id = rev.Id,
+                                                   Name = rev.Name,
+                                                   Description = rev.Description,
+                                                   CategoryName = rev.Category.Name
+                                               });
+            return View(reviewModel);
         }
-
-
-   
 
         [HttpGet]
         public IActionResult AddNewReview()
         {
-            var value = repository.Categories;
             ViewBag.allCategories = repository.Categories;
             return View();
         }
@@ -41,6 +42,25 @@ namespace TestTask_1.Controllers
         {
             repository.AddNewReview(review);
             return RedirectToAction(nameof(AddNewReview));
+        }
+
+        [HttpGet]
+        public IActionResult Details(int Id)
+        {
+            Review review = repository.GetReviewById(Id);
+            return View(review);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Review review)
+        {
+            return View();
         }
     }
 }
