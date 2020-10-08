@@ -20,7 +20,7 @@ namespace TestTask_1.Repositories
         {
             get
             {
-                return context.Reviews.ToList();
+                return context.Reviews.Include(r => r.Category);
             }
         }
 
@@ -50,6 +50,17 @@ namespace TestTask_1.Repositories
             {
                 string exception = ex.ToString();
             }
+        }
+
+        public Review GetReviewById(int Id)
+        {
+            return context.Reviews.Include(r => r.Category).First(r => r.Id == Id);
+        }
+
+        public void UpdateReview(Review review)
+        {
+            context.Reviews.Update(review);
+            context.SaveChanges();
         }
     }
 }
