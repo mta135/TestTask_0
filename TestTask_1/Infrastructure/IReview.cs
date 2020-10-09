@@ -13,5 +13,6 @@ namespace TestTask_1.Infrastructure
         void AddNewReview(Review review);
         Review GetReviewById(int Id);
         void UpdateReview(Review review);
+        void DeleteReview(Review review);
     }
 }
