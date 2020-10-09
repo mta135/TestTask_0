@@ -4,33 +4,29 @@
 }
 
 <div class="container">
-    <h1>Delete Page</h1>
-    <hr />
-    <label>Do wou want delete this row ?</label>
-
-
-    <form asp-action="Edit" method="post">
-        
-        @*<div class="form-group">
-            <label asp-for="Category"></label>
-            <input asp-for="Category.Name" type="text" class="form-control" id="txtName" readonly>
-        </div>*@
-
-
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" type="text" class="form-control" id="txtName" aria-describedby="Name">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Delete Page</h3>
+            <hr />
+            <label>Do wou want delete this row ?</label>
+            <form asp-action="Delete" method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" type="text" class="form-control" id="txtName" readonly>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="5" cols="40" readonly></textarea>
+                </div>
+                <div class="row">
+                    <div class="btn btn-block text-sm-left">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <a href="/Review/AddNewReview" class="btn btn-primary">New Review</a>
+                        <a href="/Review/Index" class="btn btn-primary">Start</a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control" rows="5" cols="40"></textarea>
-        </div>
-        <div class="form-group">
-            <div class="row col-md">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
-
+    </div>
 </div>
 
