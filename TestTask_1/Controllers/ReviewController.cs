@@ -40,8 +40,13 @@ namespace TestTask_1.Controllers
         [HttpPost]
         public IActionResult AddNewReview(Review review)
         {
-            repository.AddNewReview(review);
-            return RedirectToAction(nameof(AddNewReview));
+            if (ModelState.IsValid)
+            {
+                repository.AddNewReview(review);
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.allCategories = repository.Categories;
+            return View(); 
         }
 
         [HttpGet]
@@ -54,13 +59,27 @@ namespace TestTask_1.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            return View();
+            Review review = repository.GetReviewById(Id);
+            return View(review);
         }
 
         [HttpPost]
         public IActionResult Edit(Review review)
         {
-            return View();
+            repository.UpdateReview(review);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult Delete(int Id)
+        {
+            Review review = repository.GetReviewById(Id);
+            return View(review);
+        }
+        [HttpPost]
+        public IActionResult Delete(Review review)
+        {
+            repository.DeleteReview(review);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
