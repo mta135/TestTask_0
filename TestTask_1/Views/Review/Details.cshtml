@@ -1,41 +1,28 @@
 ﻿@model Review
+
 @{
     Layout = "~/Views/Shared/_LayoutReview.cshtml";
 
 }
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Details</h3>
-            <hr />
-            <form asp-action="Details" method="get">
-                <div class="form-group">
-                    <label asp-for="Category"></label>
-                    <input asp-for="Category.Name" type="text" class="form-control" id="txtCategoryName" readonly>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" type="text" class="form-control" id="txtName" readonly>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <textarea asp-for="Description" class="form-control" rows="5" cols="40" readonly></textarea>
-                </div>
-            </form>
+    <h4 class="text-center">Review Details</h4>
+    <form asp-action="Details" method="get">
+        <div class="form-group">
+            <label asp-for="Category"></label>
+            @*<select class="form-control" asp-for="Category.Name" asp-items="@(new SelectList(ViewBag.allCategories,"Id","Name"))">
+                <option value="0">Select Category</option>
+            </select>*@
+            <input asp-for="Category.Name" type="text" class="form-control" id="txtName">
         </div>
-    </div>
-    <div style="margin-top:20px">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/Review/AddNewReview">New Review</a>
-            </div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" class="form-control" id="txtName">
         </div>
-    </div>
-    <div style="margin-top:10px">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/Review/Index">All Review</a>
-            </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" rows="5" cols="40"></textarea>
         </div>
-    </div>
+    </form>
 </div>
