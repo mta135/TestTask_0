@@ -63,6 +63,7 @@ namespace TestTask_1.Repositories
             {
                 // This SQL script is used because tables Category -> Review are in one to many relationship, and need to avoid Cascading UPDATE
                 string query = "UPDATE Reviews SET Name = '" + review.Name + "', Description ='" + review.Description + "' WHERE Id = '" + review.Id + "'";
+                //context.Update(review);
                 context.Database.ExecuteSqlRaw(query);
             } catch(Exception ex)
             {
