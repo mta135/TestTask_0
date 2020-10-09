@@ -59,8 +59,28 @@ namespace TestTask_1.Repositories
 
         public void UpdateReview(Review review)
         {
-            context.Reviews.Update(review);
-            context.SaveChanges();
+            try
+            {
+                // This SQL script is used because tables Category -> Review are in one to many relationship, and need to avoid Cascading UPDATE
+                string query = "UPDATE Reviews SET Name = '" + review.Name + "', Description ='" + review.Description + "' WHERE Id = '" + review.Id + "'";
+                context.Database.ExecuteSqlRaw(query);
+            } catch(Exception ex)
+            {
+                string exception = ex.Message;
+            }
+        }
+        public void DeleteReview(Review review)
+        {
+            try
+            {
+                // This SQL script is used because tables Category -> Review are in one to many relationship, and need to avoid Cascading DELETE
+                string query = "DELETE FROM Reviews WHERE Id = '" + review.Id + "'";
+                context.Database.ExecuteSqlRaw(query);
+            }
+            catch (Exception ex)
+            {
+                string exception = ex.Message;
+            }
         }
     }
 }
