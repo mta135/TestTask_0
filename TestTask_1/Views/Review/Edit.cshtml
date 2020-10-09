@@ -1,11 +1,34 @@
-﻿
+﻿@model Review
 
 @{
     Layout = "~/Views/Shared/_LayoutReview.cshtml";
-
 }
-
-
-<h1>
-    Index Edit page
-</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Edit</h3>
+            <hr />
+            <form asp-action="Edit" method="post">
+                <div class="form-group">
+                    <label asp-for="Category"></label>
+                    <input asp-for="Category.Name" type="text" class="form-control" id="txtCategoryName" readonly>
+                    <span asp-validation-for="Category.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" type="text" class="form-control" id="txtName" aria-describedby="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="5" cols="40"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="row col-md">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
