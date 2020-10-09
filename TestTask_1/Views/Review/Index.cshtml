@@ -2,13 +2,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-
-
             <h3>Index</h3>
             <hr />
             @(Html.Kendo().Grid(Model)
@@ -18,14 +14,16 @@
             columns.Bound(p => p.Name).Title("Name");
             columns.Bound(p => p.Description).Title("Description");
             columns.Bound(p => p.CategoryName).Title("Category Name");
-            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Details", "Review") + "/#= Id #'" + "><div class='btn btn-outline-primary'>Details</div></a>").Width(95).Title("Details");
-            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Review") + "/#= Id #'" + "><div class='btn btn-outline-warning'>Edit</div></a>").Width(85).Title("Edit");
-            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Delete", "Review") + "/#= Id #'" + "><div class='btn btn-outline-danger'>Delete</div></a>").Width(95).Title("Delete");
-
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Details", "Review") + "/#= Id #'" + "><div class='btn btn-primary'>Details</div></a>").Width(100).Title("Details");
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Review") + "/#= Id #'" + "><div class='btn btn-warning'>Edit</div></a>").Width(90).Title("Edit");
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Delete", "Review") + "/#= Id #'" + "><div class='btn btn-danger'>Delete</div></a>").Width(100).Title("Delete");
         })
-        .Pageable()
-        .HtmlAttributes(new { style = "height:600px;" })
-        .Scrollable(scr => scr.Height(430))
+        .HtmlAttributes(new { style = "height: 600px;" })
+        .Pageable( pageable => pageable
+        .Input(true)
+        .Numeric(false)
+     )
+        .Scrollable(scr=>scr.Height(430))
         .DataSource(dataSource => dataSource
         .Ajax()
         .PageSize(20)
@@ -34,11 +32,10 @@
 )
         </div>
     </div>
-    <div style="margin-top:20px">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/Review/AddNewReview">New Review</a>
-            </div>
+    <div class="row">
+        <div class="btn btn-block text-sm-left">
+            <a href="/Review/AddNewReview" class="btn btn-primary">New Review</a>
+
         </div>
     </div>
 </div>
