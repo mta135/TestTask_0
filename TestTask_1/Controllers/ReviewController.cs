@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TestTask_1.Infrastructure;
 using TestTask_1.Models;
+using TestTask_1.ViewModels;
 
 namespace TestTask_1.Controllers
 {
@@ -19,15 +17,10 @@ namespace TestTask_1.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Review> reviewModel = (from rev in repository.Reviews
-                                               select new Review()
-                                               {
-                                                   Id = rev.Id,
-                                                   Name = rev.Name,
-                                                   Description = rev.Description,
-                                                   CategoryName = rev.Category.Name
-                                               });
-            return View(reviewModel);
+
+            IEnumerable<Review> reviewModel = repository.Reviews;
+            List<ReviewViewModels> ReviewGridViewModels = Mapper.Instance.ReviewModelToReviewGridViewModels(reviewModel);
+            return View(ReviewGridViewModels);
         }
 
         [HttpGet]
@@ -52,15 +45,17 @@ namespace TestTask_1.Controllers
         [HttpGet]
         public IActionResult Details(int Id)
         {
-            Review review = repository.GetReviewById(Id);
-            return View(review);
+            //Review review = repository.GetReviewById(Id);
+            ReviewViewModels reviewViewModels = Mapper.Instance.MapReviewModelToReviewViewModels(repository.GetReviewById(Id));
+            return View(reviewViewModels);
         }
 
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            Review review = repository.GetReviewById(Id);
-            return View(review);
+            //Review review = repository.GetReviewById(Id);
+            ReviewViewModels reviewViewModels = Mapper.Instance.MapReviewModelToReviewViewModels(repository.GetReviewById(Id));
+            return View(reviewViewModels);
         }
 
         [HttpPost]
@@ -72,8 +67,9 @@ namespace TestTask_1.Controllers
         [HttpGet]
         public IActionResult Delete(int Id)
         {
-            Review review = repository.GetReviewById(Id);
-            return View(review);
+            //Review review = repository.GetReviewById(Id);
+            ReviewViewModels reviewViewModels = Mapper.Instance.MapReviewModelToReviewViewModels(repository.GetReviewById(Id));
+            return View(reviewViewModels);
         }
         [HttpPost]
         public IActionResult Delete(Review review)
