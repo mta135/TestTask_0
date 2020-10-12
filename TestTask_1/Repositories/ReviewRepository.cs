@@ -61,10 +61,10 @@ namespace TestTask_1.Repositories
         {
             try
             {
-                // This SQL script is used because tables Category -> Review are in one to many relationship, and need to avoid Cascading UPDATE
-                string query = "UPDATE Reviews SET Name = '" + review.Name + "', Description ='" + review.Description + "' WHERE Id = '" + review.Id + "'";
-                //context.Update(review);
-                context.Database.ExecuteSqlRaw(query);
+                Review dbReview = context.Reviews.FirstOrDefault(r => r.Id == review.Id);
+                dbReview.Name = review.Name;
+                dbReview.Description = review.Description;
+                context.SaveChanges();
             } catch(Exception ex)
             {
                 string exception = ex.Message;
@@ -74,9 +74,13 @@ namespace TestTask_1.Repositories
         {
             try
             {
+               
+                Review dbReview = context.Reviews.FirstOrDefault(r => r.Id == review.Id);
+                context.Reviews.Remove(dbReview);
+                context.SaveChanges();
                 // This SQL script is used because tables Category -> Review are in one to many relationship, and need to avoid Cascading DELETE
-                string query = "DELETE FROM Reviews WHERE Id = '" + review.Id + "'";
-                context.Database.ExecuteSqlRaw(query);
+                //  string query = "DELETE FROM Reviews WHERE Id = '" + review.Id + "'";
+                //  context.Database.ExecuteSqlRaw(query);
             }
             catch (Exception ex)
             {
