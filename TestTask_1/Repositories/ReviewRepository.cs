@@ -74,13 +74,9 @@ namespace TestTask_1.Repositories
         {
             try
             {
-               
                 Review dbReview = context.Reviews.FirstOrDefault(r => r.Id == review.Id);
                 context.Reviews.Remove(dbReview);
                 context.SaveChanges();
-                // This SQL script is used because tables Category -> Review are in one to many relationship, and need to avoid Cascading DELETE
-                //  string query = "DELETE FROM Reviews WHERE Id = '" + review.Id + "'";
-                //  context.Database.ExecuteSqlRaw(query);
             }
             catch (Exception ex)
             {
