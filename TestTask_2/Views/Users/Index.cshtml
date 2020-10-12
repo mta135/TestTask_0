@@ -1,0 +1,70 @@
+﻿@model UserViewModels
+
+@{
+    ViewBag.Title = "Title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>UsersCities IndexPge</h1>
+    <form method="post" id="friendform" asp-action="Index">
+        <div class="form-group">
+            <label>Cities Telereki Kendo UI</label>
+            @(Html.Kendo().DropDownList().Name("CityId").BindTo(new SelectList(Model.Cities, "Id", "Name")).Value("0").HtmlAttributes(new { style = "width: 100%" }))
+        </div>
+        <div class="form-group">
+            <label asp-for="UserFulName"></label>
+            <input type="text" asp-for="UserFulName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UserBirthDate"></label>
+            @(Html.Kendo().DatePicker().Name("UserBirthDate").Value("10/10/2011").HtmlAttributes(new { style = "width: 100%", title = "UserBirthDate" }))
+        </div>
+
+        <div class="form-group">
+            <label asp-for="HomeNumber"></label>
+            @(Html.Kendo().NumericTextBox<int>().Name("HomeNumber").Min(0).Max(100).HtmlAttributes(new { style = "width: 100%", title = "HomeNumber" }))
+        </div>
+
+        @*<button class="btn btn-success" type="submit">Submit</button>*@
+        <input id="btnsubmit" type="reset" class="btn btn-success" value="Submit" />
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btnsubmit").click(function () {
+            debugger;
+            var data = $("#friendform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Users/Index",
+                data: data,
+                success: function (response) {
+                    alert("You are done");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+@*@section scripts{
+        <script>
+            $(function () {
+                $('#submit').on('click', function (evt) {
+                    evt.preventDefault();
+                    $.post('', $('form').serialize(), function () {
+                        alert('Posted using jQuery');
+                    });
+                });
+            });
+        </script>
+    }*@
+
+
+
