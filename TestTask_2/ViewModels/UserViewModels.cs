@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,5 +23,6 @@ namespace TestTask_2.ViewModels
         public int CityId { get; set; }
         [Display(Name = "Cities")]
         public IEnumerable<City> Cities { get; set; }
+        public IFormFile Photo { get; set; }
     }
 }
