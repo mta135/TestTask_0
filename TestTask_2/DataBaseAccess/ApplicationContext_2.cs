@@ -14,6 +14,6 @@ namespace TestTask_2.DataBaseAccess
         public DbSet<City> Cities { get; set; }
 
 
-        public ApplicationContext_2(DbContextOptions<ApplicationContext_2> opts) : base(opts) { }
+        public ApplicationContext_2(DbContextOptions<ApplicationContext_2> options) : base(options) { }
     }
 }
