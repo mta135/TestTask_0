@@ -12,5 +12,7 @@ namespace TestTask_2.Models
         public string FullName { get; set; }
         public int HomeNumber { get; set; }
         public DateTime BirthDate { get; set; }
+
+        public string PhotPath { get; set; }
     }
 }
