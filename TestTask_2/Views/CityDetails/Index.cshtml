@@ -1,0 +1,145 @@
+﻿@model CityDetailsViewModel
+
+@{
+    ViewBag.Title = "Title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Users</h3>
+            <hr />
+            <form method="post" id="friendform" asp-action="Index" enctype="multipart/form-data" asp-controller="CityDetails">
+                <div class="form-group">
+                    <label>Cities Telereki Kendo UI</label>
+                    @(Html.Kendo().DropDownList().Name("CityId").
+                             BindTo(new SelectList(Model.Cities, "Id", "Name"))
+                             .Value("0").HtmlAttributes(new { style = "width: 100%" }).Filter(FilterType.Contains)
+                             )
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserFulName"></label>
+                    <input type="text" asp-for="UserFulName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserBirthDate"></label>
+                    @(Html.Kendo().DatePicker().Name("UserBirthDate").Value("01/01/2020").HtmlAttributes(new { style = "width: 100%", title = "UserBirthDate" }))
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeNumber"></label>
+                    @(Html.Kendo().NumericTextBox<int>().Name("HomeNumber").Min(0).Max(100).HtmlAttributes(new { style = "width: 100%", title = "HomeNumber" }))
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Photo" class="col-sm-6 col-form-label"></label>
+                    <div class="col-sm-12">
+                        <div class="custom-file">
+                            <input asp-for="Photo" class="form-control custom-file-input" id="uploadfile" />
+
+                            <label class="custom-file-label" id="lblFileUpload">Choose File...</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-sm-12 col-form-label">Kendo UI DropDown with multiple select</label>
+                        <div class="col-sm-12">
+                            @(Html.Kendo().MultiSelect().Name("StreetsId").BindTo(new SelectList(Model.Streets, "Id", "Name")).Filter(FilterType.Contains))
+                        </div>
+                    </div>
+                </div>
+                @*<button class="btn btn-success" type="submit">Submit</button>*@
+                @*<input id="btnsubmit" type="reset" class="btn btn-success" value="Submit" />*@
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.custom-file-input').on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            debugger
+            if (validate()) {
+                $(this).next('.custom-file-label').html(fileName);
+            }
+            else {
+                $(this).next('.custom-file-label').html('Choose File...');
+                return;
+            }
+        });
+    });
+    function validate() {
+        var array = ['png'];
+        var xyz = document.getElementById("uploadfile");
+        var Extension = xyz.value.substring(xyz.value.lastIndexOf('.') + 1).toLowerCase();
+        if (array.indexOf(Extension) <= -1) {
+            document.getElementById("uploadfile").value = ""
+            alert("Please Upload pdf only extension flle");
+            return false;
+        }
+        return true;
+    }
+
+</script>
+<script type="text/javascript">
+        $("form").submit(function (evt) {
+            evt.preventDefault();
+            debugger
+            var formData = new FormData($(this)[0]);
+            $.ajax({
+                type: 'POST',
+                url: "/CityDetails/Index",
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    alert("you are done");
+                    //window.location.href = '/CityDetails/Total/';
+                    return false;
+                }
+            });
+            //  return window.location.href = '/Users/Total/';
+            return false;
+        });
+    </script>
+
+
+
+
+
+
+
+@*<script type="text/javascript">
+        $("form").submit(function (evt) {
+            evt.preventDefault();
+            debugger
+            var formData = new FormData($(this)[0]);
+            $.ajax({
+                type: 'POST',
+                url: "/CityDetails/Index",
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    alert("you are done");
+                    window.location.href = '/CityDetails/Total/';
+                }
+            });
+            //  return window.location.href = '/Users/Total/';
+            return false;
+        });
+    </script>*@
+
