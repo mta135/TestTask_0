@@ -11,15 +11,6 @@ namespace TestTask_1.ViewModels
     public class ReviewViewModels
     {
 
-
-        //Id = rev.Id,
-        //    Name = rev.Name,
-        //    Description = rev.Description,
-        //    CategoryName = rev.Category.Name
-
-
-
-
         public int Id { get; set; }
 
         [DisplayName("Name of Review")]
