@@ -32,12 +32,16 @@ namespace TestTask_2
             // Add framework services.
             services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddKendo();
+
+
+
             services.AddMvc(options => options.EnableEndpointRouting = false);
-
-
-            services.AddTransient<IUser, UserRepository>();
-            services.AddTransient<ICity, CityRepository>();
-            services.AddDbContext<ApplicationContext_2>(options => options.UseSqlServer(Configuration["Data:SqlConnection_2:ConnectionString_2"]));
+            //services.AddTransient<IUser, UserRepository>();
+            //services.AddTransient<ICity, CityRepository>();
+            //services.AddTransient<IStreet, StreetRepositry>();
+            services.AddTransient<ICityDetails, CityDetailsRepository>();
+            // services.AddDbContext<ApplicationContext_2>(options => options.UseSqlServer(Configuration["Data:SqlConnection_2:ConnectionString_2"]));
+            services.AddDbContext<ApplicationContext_2>(options => options.UseSqlServer(Configuration["Data:SqlConnection_1:ConnectionString_1"]));
         }
 
 
@@ -49,7 +53,7 @@ namespace TestTask_2
             app.UseMvc(routes => {
                 routes.MapRoute(
                 name: "default",
-                template: "{controller=Users}/{action=Index}/{id?}");
+                template: "{controller=CityDetails}/{action=Index}/{id?}");
             });
         }
     }
